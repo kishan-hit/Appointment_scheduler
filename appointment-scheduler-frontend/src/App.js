@@ -5,6 +5,7 @@ import Homepage from './components/homepage/homepage';
 import{BrowserRouter as Router,Routes,Route}from "react-router-dom";
 import { Calendar } from './Calendar';
 
+
 function App() {
   return (
     <div className="App">
@@ -15,7 +16,8 @@ function App() {
           <Route path='/register' element={<Register/>} />
         </Routes>
       </Router>/*/}
-      <Calendar startingDate={new Date()}/>
+  <Calendar startingDate={new Date()}/>
+
     </div>
   );
 }
