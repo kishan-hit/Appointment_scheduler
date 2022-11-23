@@ -2,9 +2,11 @@
     display: flex;
     text-align: center;
     justify-content: center;
-    padding: 90px 0 90px 0;
-    /* background-color: rgb(252,252,252); */
+    /* padding: 90px 0 90px 0; */
+    background-color: rgb(252,252,252);
     position: fixed;
+    width: 100vw;
+    height: 100vh;
   }
   .sub-main{
     display: flex;
@@ -12,10 +14,21 @@
     justify-content: center;
     height: 350px;
     width: auto;
-    box-shadow: 11px 12px 13px 12px rgb(207,207,207);
+    box-shadow: 11px 12px 13px 12px rgb(207 207 207);
     padding-top: 30px;
     border-radius: 60px;
     background-color: white;
+    margin: auto auto;
+    position: relative;
+  }
+  .cross{
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 25px;
+  }
+  .cross:hover{
+    cursor: pointer;
   }
   input{
     width: 200px;

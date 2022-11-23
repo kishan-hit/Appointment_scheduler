@@ -10,6 +10,7 @@ export const Calendar = ({ startingDate }) => {
     const [currentYear, setCurrentYear] = useState(startingDate.getFullYear());
 
     const [showResults, setShowResults] = useState(false)
+    const [selectedDay,setSelectedDay] = useState(null)
     
 
     const DAYSINMONTH = getDaysInMonth(currentMonth, currentYear);
@@ -39,6 +40,10 @@ export const Calendar = ({ startingDate }) => {
     //     console.log(year)
     //     setisAvailablePage(true)
     // }
+    const togglePageShow=(day)=>{
+        setSelectedDay(day)
+        setShowResults(!showResults)
+    }
     return (
         <Wrappper >
             <CalendarHead>
@@ -57,17 +62,11 @@ export const Calendar = ({ startingDate }) => {
                     <HeadDay>{day}</HeadDay>
                 ))}
             </SevenColGrid>
-            {
-                showResults && 
-                // <div style={{position: "fixed"}}>
-                    <BasicForm />
-                // </div>
-            }
             <CalendarBody fourCol={DAYSINMONTH === 28}>
                 {range(getDaysInMonth(currentMonth, currentYear)).map((day) => (
                     <StyledDay
                         // onClick={() => { dateClicked(day, currentMonth, currentYear) }}
-                        onClick={()=>setShowResults(!showResults)}
+                        onClick={()=>{togglePageShow(day+"-"+currentMonth+"-"+currentYear)}}
                         style={{ cursor: 'pointer' }}
                         active={areDatesTheSame(
                             new Date(),
@@ -78,13 +77,12 @@ export const Calendar = ({ startingDate }) => {
                 ))}
                 
 
-                {/*{
-                isAvailablePage == true ?
-                    <div className="showPage">
-                        <div>hello</div>
-                    </div> :
-                    <div></div>
-            }*/}
+                {
+                    showResults && 
+                    // <div style={{position: "fixed"}}>
+                        <BasicForm togglePageShow={togglePageShow} selectedDay={selectedDay}/>
+                    // </div>
+                }
             </CalendarBody>
         </Wrappper>
     )

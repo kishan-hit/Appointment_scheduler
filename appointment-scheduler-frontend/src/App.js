@@ -9,14 +9,14 @@ import { Calendar } from './Calendar';
 function App() {
   return (
     <div className="App">
-      {/*<Router>
+      <Router>
         <Routes>
           <Route path='/' element={<Homepage/>} />
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Register/>} />
         </Routes>
-      </Router>/*/}
-  <Calendar startingDate={new Date()}/>
+      </Router>
+  {/*<Calendar startingDate={new Date()}/>*/}
 
     </div>
   );
