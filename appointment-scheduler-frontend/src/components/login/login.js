@@ -3,9 +3,10 @@ import "./login.css";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-const Login = () =>{
+const Login = ({setLoginUser}) =>{
 
     const navigate = useNavigate();
+    
 
     const[user,setUser] = useState({
         email: "",
@@ -21,13 +22,22 @@ const Login = () =>{
     }
 
     const login = () => {
-        axios.post("http://localhost:8000/login",user)
-        .then(res => alert(res.data.message));
+        axios.post("http://localhost:8000/newuser/login",user)
+        .then(res => {
+            alert(res.data.message)
+            setLoginUser(res.data.user)
+            localStorage.setItem('user', JSON.stringify(res.data.user));
+            console.log(res.data)
+            if(res.data.user.role=="user"){
+                navigate("/user-home")
+            }else{
+                navigate("/booking")
+            }
+        });
     }
 
     return(
         <div className="login">
-            {console.log(user)}
             <h1>Login</h1>
             <input type="text" name="email" value={user.email} placeholder="Enter your email" onChange={handleChange}></input>
             <input type="password" name="password" value={user.password} placeholder="Enter your password" onChange={handleChange}></input>
@@ -39,3 +49,4 @@ const Login = () =>{
 }
 
 export default Login;
+

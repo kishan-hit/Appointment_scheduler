@@ -5,7 +5,7 @@ import { areDatesTheSame, getDateObj, getDaysInMonth, getSortedDays, range } fro
 import "./index.css"
 import BasicForm from "./form";
 
-export const Calendar = ({ startingDate }) => {
+const Calendar = ({ startingDate }) => {
     const [currentMonth, setCurrentMonth] = useState(startingDate.getMonth());
     const [currentYear, setCurrentYear] = useState(startingDate.getFullYear());
 
@@ -87,3 +87,4 @@ export const Calendar = ({ startingDate }) => {
         </Wrappper>
     )
 }
+export default Calendar;
