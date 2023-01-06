@@ -12,6 +12,8 @@ app.use(cors())
 var newUser = require("./router/userRouter.js")
 var doctorAvailability = require("./router/doctorAvailabilityRouter.js")
 var doctorAppointment = require("./router/doctorAppointmentRouter.js")
+var doctorAvail = require("./router/doctorDetailsRouter.js")
+var userDetail = require("./router/userDetailsRouter.js")
 
 mongoose.connect("mongodb://localhost:27017/myLoginRegisterDB",{
     useNewUrlParser: true,
@@ -23,6 +25,8 @@ mongoose.connect("mongodb://localhost:27017/myLoginRegisterDB",{
 app.use("/newuser",newUser)
 app.use("/doctorAvailability",doctorAvailability)
 app.use("/doctorAppointment",doctorAppointment)
+app.use("/doctor",doctorAvail)
+app.use("/user",userDetail)
 
 // Schema
 // const Schema = mongoose.Schema;
