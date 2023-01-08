@@ -5,24 +5,20 @@ var doctor = require("./doctorAvailability.js")
 const Schema = mongoose.Schema;
 
 const doctorAppointmentSchema = new Schema({
-    user_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'user'
+    user_email: {
+        type: String,
+        required : true
     },
-    doctor_id: {
-        type: Schema.Types.ObjectId,
-        ref: 'doctor'
-    },
-    date: {
+    doctor_email: {
         type: String,
         required: true
     },
     start_time: {
-        type: Number,
+        type: Date,
         required: true
     },
     end_time: {
-        type: Number,
+        type: Date,
         required: true
     },
 })

@@ -24,7 +24,7 @@ router.get('/get-user',async function(req,res){
         "users": users
     })
 })
-router.get('/userDetail',async function(req,res){
+router.post('/userDetail',async function(req,res){
 
     const user = await UserDetail.findOne({email : req.body.email});
     res.send({

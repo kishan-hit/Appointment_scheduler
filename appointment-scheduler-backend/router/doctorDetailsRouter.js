@@ -32,8 +32,7 @@ router.get('/get-doctor',async function(req,res){
     })
 })
 router.get('/doctorDetail',async function(req,res){
-
-    const doctor = await DoctorDetail.findOne({email : req.body.email});
+    const doctor = await DoctorDetail.findOne({email : req.query.email});
     res.send({
         "doctor": doctor
     })

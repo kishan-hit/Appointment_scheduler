@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var moment = require('moment');
+// var moment = require('moment');
 var DoctorAvailability = require("../models/doctorAvailability.js")
+var DoctorAppointment = require("../models/doctorAppointment.js")
+var moment = require('moment-timezone');
 
 router.post("/:duration", (req, res) => {
     const { user_id, start_time, end_time } = req.body;
@@ -31,11 +33,15 @@ router.post("/:duration", (req, res) => {
 
             smtime = tmtime.add(1, "minutes");
 
-            let starttimetemp = smtime.toISOString()
+            var a = moment.tz(smtime,"Asia/calcutta").format()
+            // console.log("a",a)
+
+            // let starttimetemp = smtime.toISOString()
 
             tmtime = smtime.add((tduration - 1), "minutes")
 
-            let endtimetemp = tmtime.toISOString();
+            // let endtimetemp = tmtime.toISOString();
+            var b = moment.tz(tmtime,"Asia/calcutta").format()
 
             // stime = +tempend + 1;
             // tempend = +stime + +duration - 1
@@ -53,8 +59,8 @@ router.post("/:duration", (req, res) => {
             // })
             let doctorAvailability = new DoctorAvailability({
                 user_id,
-                start_time : starttimetemp,
-                end_time : endtimetemp
+                start_time : a,
+                end_time : b
             })
             doctorAvailability.save()
         }
@@ -62,10 +68,24 @@ router.post("/:duration", (req, res) => {
     }
 })
 
-router.get('/', async function (req, res) {
-    const users = await DoctorAvailability.find({ user_id: "634e63ae22fe7ed6151489d9" });
+router.post('/', async function (req, res) {
+    const date = req.body.date;
+    const darr = date.split("-")
+    console.log(darr[2])
+    console.log(darr[1])
+    console.log(darr[0])
+    var ndate = new Date(Date.UTC(darr[2],darr[1],darr[0],0,0,0));
+    console.log(ndate)
+    var ndatepo = new Date(Date.UTC(darr[2],darr[1],Number(1+Number(darr[0])),0,0,0));
+    console.log(ndatepo)
+    const data = await DoctorAvailability.find({ email : req.body.email , 
+        start_time:{
+            $gte: ndate,
+            $lt: ndatepo
+        }
+    });
     res.send({
-        "users": users
+        "availability": data
     })
 });
 
