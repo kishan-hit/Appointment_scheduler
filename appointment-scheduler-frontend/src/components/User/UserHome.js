@@ -18,7 +18,11 @@ const UserHome = () => {
         getDoctor()
     }, [])
     const bookAppointment = (email)=>{
-        navigate("/booking")
+        navigate("/booking",{
+            state : {
+                email : email
+            }
+        })
     }
     return (
         <div>

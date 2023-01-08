@@ -7,6 +7,8 @@ import { useState } from 'react';
 import UserHome from './components/User/UserHome';
 import DoctorRegstration from './components/Doctor/DoctorRegstration';
 import UserRegistration from './components/User/UserRegistration';
+import DoctorHome from './components/Doctor/DoctorHome';
+import PatientDetails from './components/Doctor/PatientDetails';
 
 function App() {
   const [user,setLoginUser] = useState({})
@@ -24,6 +26,8 @@ function App() {
           <Route path='/user-home' element={<UserHome/>} />
           <Route path='/doctor-registration' element={<DoctorRegstration/>} />
           <Route path='/user-registration' element={<UserRegistration/>} />
+          <Route path='/doctor-home' element={<DoctorHome/>} />
+          <Route path='/patient-detail' element={<PatientDetails/>} />
         </Routes>
       </Router>
   {/*<Calendar startingDate={new Date()}/>*/}

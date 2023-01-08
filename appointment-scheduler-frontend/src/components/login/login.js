@@ -31,7 +31,7 @@ const Login = ({setLoginUser}) =>{
             if(res.data.user.role=="user"){
                 navigate("/user-home")
             }else{
-                navigate("/booking")
+                navigate("/doctor-home")
             }
         });
     }

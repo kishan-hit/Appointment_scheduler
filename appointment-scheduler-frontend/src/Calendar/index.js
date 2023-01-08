@@ -1,16 +1,44 @@
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
+import {useLocation} from 'react-router-dom'
 import { MONTHS } from "./conts"
 import { CalendarBody, CalendarHead, HeadDay, SevenColGrid, StyledDay, Wrappper } from "./style"
 import { areDatesTheSame, getDateObj, getDaysInMonth, getSortedDays, range } from "./utils"
 import "./index.css"
 import BasicForm from "./form";
+import axios from "axios"
+import UserBooking from "./UserBooking"
 
 const Calendar = ({ startingDate }) => {
+
+    const location = useLocation()
+
     const [currentMonth, setCurrentMonth] = useState(startingDate.getMonth());
     const [currentYear, setCurrentYear] = useState(startingDate.getFullYear());
 
     const [showResults, setShowResults] = useState(false)
+    const [showUserForm, setshowUserForm] = useState(false)
     const [selectedDay,setSelectedDay] = useState(null)
+    const [doctor, setdoctor] = useState(null)
+    const [user, setuser] = useState({})
+
+    useEffect(() => {
+        const udata = JSON.parse(localStorage.getItem('user'));
+        setuser(udata)
+        if(udata.role=="user"){
+            async function getData(){
+                const data = {
+                    email : location.state.email
+                }
+                console.log(data)
+                const res = await axios.get(`http://localhost:8000/doctor/doctorDetail?email=${location.state.email}`)
+                if(res.data){
+                    setdoctor(res.data.doctor)
+                }
+            } 
+            getData()
+        }
+    }, [])
+    
     
 
     const DAYSINMONTH = getDaysInMonth(currentMonth, currentYear);
@@ -42,7 +70,11 @@ const Calendar = ({ startingDate }) => {
     // }
     const togglePageShow=(day)=>{
         setSelectedDay(day)
-        setShowResults(!showResults)
+        if(user.role=="doctor"){
+            setShowResults(!showResults)
+        }else{
+            setshowUserForm(!showUserForm)
+        }
     }
     return (
         <Wrappper >
@@ -82,6 +114,10 @@ const Calendar = ({ startingDate }) => {
                     // <div style={{position: "fixed"}}>
                         <BasicForm togglePageShow={togglePageShow} selectedDay={selectedDay}/>
                     // </div>
+                }
+                {
+                    showUserForm &&
+                        <UserBooking togglePageShow={togglePageShow} selectedDay={selectedDay} doctor={doctor}/>
                 }
             </CalendarBody>
         </Wrappper>
