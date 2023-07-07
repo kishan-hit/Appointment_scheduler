@@ -10,6 +10,7 @@ router.post("/register",(req,res)=>{
             res.send({message: "User already registered"})
         }
         else{
+            // if(role == 'user')
             const user = new User({
                 name,
                 email,
@@ -18,8 +19,10 @@ router.post("/register",(req,res)=>{
             })
             user.save((err,data)=>{
                 if(err){
+                    console.log(err)
                     res.send(err)
                 }else{
+                    console.log(data);
                     res.send({message: "Successfully Registered","data":data})
                 }
             })
@@ -32,12 +35,12 @@ router.post("/login",(req,res)=>{
     User.findOne({email: email},(err,user)=>{
         if(user){
             if(password === user.password){
-                res.send({message: "login successfull", user: user})
+                return res.send({message: "login successfull", user: user})
             }else{
-                res.send({message: "Password didn't match"})
+                return res.send({message: "Password didn't match"})
             }
         }else{
-            res.send({message: "user not registered"});
+            return res.send({message: "user not registered"});
         }
     })
 })
@@ -47,6 +50,16 @@ router.get('/login',async function(req,res){
     res.send({
         "user": user
     })
+})
+
+router.get('/isRegistered/:email',async function(req,res){
+    const {email} = req.params;
+    const user = await User.findOne({email: email});
+
+    if(user){
+        return res.send(true);
+    }
+    return res.send(false);
 })
 
 module.exports = router;

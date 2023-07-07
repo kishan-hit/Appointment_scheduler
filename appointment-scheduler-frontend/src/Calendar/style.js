@@ -41,4 +41,5 @@ export const StyledDay = styled.span`
     text-align: right;
     padding: 5px;
     ${({active}) => active && `background: pink`};
+    ${({before}) => before && `background: #D3D3D3`};
 `;

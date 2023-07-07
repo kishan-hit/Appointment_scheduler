@@ -48,7 +48,7 @@ const DoctorRegstration = () => {
 
 return (
     <div className='register'>
-        <h1>Registrtion Form</h1>
+        <h1>Registration Form</h1>
         <input type="text" name="specialist" value={user.specialist} placeholder="Specialist" onChange={handleChange}></input>
         <input type="text" name="degree" value={user.degree} placeholder="Degree" onChange={handleChange}></input>
         <input type="text" name="address" value={user.address} placeholder="Address" onChange={handleChange}></input>

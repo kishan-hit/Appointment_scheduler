@@ -16,9 +16,15 @@ const UserBooking = (props) => {
             date: props.selectedDay
         }
         async function getData() {
+            console.log("xx : ", data);
             const res = await axios.post("http://localhost:8000/doctorAvailability", data)
+            // console.log('kk',res);
             if (res.data) {
-                setdoctordata(res.data.availability)
+                let arr = res.data.availability;
+                arr.sort((a, b) => a.start_time.localeCompare(b.start_time));
+                // res = arr;
+                setdoctordata(arr)
+                // console.log(res.data.availability);
             }
         }
         getData()
@@ -45,6 +51,7 @@ const UserBooking = (props) => {
             alert("Appointment Booked")
             props.togglePageShow(null)
         }
+        console.log(doctordata)
     }
     return (
         <div className='userbooking'>

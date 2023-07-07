@@ -43,7 +43,7 @@ const DoctorHome = () => {
                     <div>Patient Mail Id : {epatient.user_email}</div>
                     <div>Patient AppointMent Date : {getDateVal(epatient.start_time)}</div>
                     <div>Patient Appointment Time : {getHourVal(epatient.start_time)}</div>
-                    <div onClick={()=>{getPDetails(epatient.user_email)}} className='patientdetaildiv'>More Detils About Patient</div>
+                    <div onClick={()=>{getPDetails(epatient.user_email)}} className='patientdetaildiv'>More Details About Patient</div>
                 </div>
             })
         }
@@ -51,7 +51,7 @@ const DoctorHome = () => {
         <div>No available Patient</div>
     }
         <div>Please Add your Availability From here </div>
-        <Link to={"/booking"}>Add</Link>
+        <div className='patientdetaildiv' onClick={()=>navigate('/booking')}>Add</div>
     </div>
   )
 }

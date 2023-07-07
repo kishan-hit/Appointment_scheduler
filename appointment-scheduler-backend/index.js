@@ -20,7 +20,7 @@ var doctorAppointment = require("./router/doctorAppointmentRouter.js")
 var doctorAvail = require("./router/doctorDetailsRouter.js")
 var userDetail = require("./router/userDetailsRouter.js")
 
-mongoose.connect("mongodb://localhost:27017/myLoginRegisterDB",{
+mongoose.connect("mongodb+srv://kishan:Kishan1234@cluster0.m2zbzon.mongodb.net/docapp",{
     useNewUrlParser: true,
     useUnifiedTopology: true
 },()=>{ 
@@ -104,6 +104,11 @@ app.use("/user",userDetail)
 //     })
 // })
 
+app.get("/health",(req,res)=>{
+    res.send("Up and running");
+});
+
 app.listen(port,()=>{
     console.log(`Listening at port ${port}`);
 })
+

@@ -6,6 +6,12 @@
     width: fit-content;
     background-color: blue;
     color: white;
+    cursor: pointer;
+    padding: 3px 10px;
+    border-radius: 4px;
+    text-align: center;
+    margin: 10px 0;
+    text-decoration: none;
 }
 .patientdetaildiv:hover{
     cursor: pointer;

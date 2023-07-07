@@ -26,7 +26,9 @@ router.post("/register-doctor",(req,res)=>{
 })
 
 router.get('/get-doctor',async function(req,res){
-    const doctors = await DoctorDetail.find();
+    // console.log("doc1");
+    const doctors = await DoctorDetail.find({});
+    // console.log(doctors);
     res.send({
         "doctors": doctors
     })

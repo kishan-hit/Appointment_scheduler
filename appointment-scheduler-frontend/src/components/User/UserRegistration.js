@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import "../register/register.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -19,11 +19,11 @@ const UserRegistration = () => {
         const udata = JSON.parse(localStorage.getItem('user'));
         setUser({
             ...user,
-            email : udata.email
+            email: udata.email
         })
         setdata(udata)
     }, [])
-    
+
 
     const handleChange = e => {
         const { name, value, type } = e.target
@@ -44,20 +44,22 @@ const UserRegistration = () => {
         console.log(user)
     }
 
-  return (
-    <div className='register'>
-        <h1>Registration Form</h1>
-        <input type="text" value={data.name} disabled placeholder="Name" onChange={handleChange}></input>
-        <input type="text" name="address" value={user.address} placeholder="Address" onChange={handleChange}></input>
-        <input type="number" name="age" value={user.age} placeholder="Age" onChange={handleChange}></input>
-        <input type="number" name="mobile" value={user.mobile} placeholder="Mobile Number" onChange={handleChange}></input>
-        <div className="radio-div" onChange={handleChange}>Gender : 
-            <input type="radio" name="gender" value="male" className="radiobtn"/>Male
-            <input type="radio" name="gender" value="female" className="radiobtn"/>Female
+    return (
+        <div className='main'>
+            <div className='register'>
+                <h1>Registration Form</h1>
+                <input type="text" value={data.name} disabled placeholder="Name" onChange={handleChange}></input>
+                <input type="text" name="address" value={user.address} placeholder="Address" onChange={handleChange}></input>
+                <input type="number" name="age" value={user.age} placeholder="Age" onChange={handleChange}></input>
+                <input type="number" name="mobile" value={user.mobile} placeholder="Mobile Number" onChange={handleChange}></input>
+                <div className="radio-div" onChange={handleChange}>Gender :
+                    <input type="radio" name="gender" value="male" className="radiobtn" />Male
+                    <input type="radio" name="gender" value="female" className="radiobtn" />Female
+                </div>
+                <div className="button" onClick={register}>Register</div>
+            </div>
         </div>
-        <div className="button" onClick={register}>Register</div>
-    </div>
-  )
+    )
 }
 
 export default UserRegistration

@@ -9,7 +9,7 @@ router.post("/:duration", (req, res) => {
     const { user_id, start_time, end_time } = req.body;
     let duration = req.params['duration']
     var tduration = Number(duration)
-    console.log("duration", typeof (tduration))
+    // console.log("duration", typeof (tduration))
     // var ndate = new Date(date);
     // var tdate = ndate.toISOString().substring(0, 10)
     var smtime = moment(start_time); //todays date
@@ -19,16 +19,16 @@ router.post("/:duration", (req, res) => {
     duration = moment.duration(emtime.diff(smtime));
     let minutes = duration.asMinutes();
     minutes = Math.ceil(minutes)
-    console.log("minutes", typeof (minutes))
+    // console.log("minutes", typeof (minutes))
     var rem = minutes % tduration
-    console.log(rem)
+    // console.log(rem)
     if ((rem != 0)) {
         res.send({ "message": "slot cannot be divided for gven time frame" })
     } else {
         var stime = start_time
-        console.log(stime)
-        console.log(tempend)
-        console.log(end_time)
+        // console.log(stime)
+        // console.log(tempend)
+        // console.log(end_time)
         while (emtime.diff(smtime) > 0) {
 
             smtime = tmtime.add(1, "minutes");
@@ -57,6 +57,8 @@ router.post("/:duration", (req, res) => {
             //         })
             //     }
             // })
+            // console.log("stime",a)
+            // console.log("etime",b)
             let doctorAvailability = new DoctorAvailability({
                 user_id,
                 start_time : a,
@@ -71,13 +73,13 @@ router.post("/:duration", (req, res) => {
 router.post('/', async function (req, res) {
     const date = req.body.date;
     const darr = date.split("-")
-    console.log(darr[2])
-    console.log(darr[1])
-    console.log(darr[0])
-    var ndate = new Date(Date.UTC(darr[2],darr[1],darr[0],0,0,0));
-    console.log(ndate)
-    var ndatepo = new Date(Date.UTC(darr[2],darr[1],Number(1+Number(darr[0])),0,0,0));
-    console.log(ndatepo)
+    // console.log(darr[2])
+    // console.log(darr[1])
+    // console.log(darr[0])
+    var ndate = new Date(Date.UTC(darr[2],darr[1]-1,darr[0]-1,0,0,0));
+    // console.log('x : ',ndate)
+    var ndatepo = new Date(Date.UTC(darr[2],darr[1]-1,Number(Number(darr[0])),0,0,0));
+    // console.log('y : ',ndatepo)
     const data = await DoctorAvailability.find({ email : req.body.email , 
         start_time:{
             $gte: ndate,

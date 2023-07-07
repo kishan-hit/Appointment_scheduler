@@ -29,7 +29,7 @@ const Calendar = ({ startingDate }) => {
                 const data = {
                     email : location.state.email
                 }
-                console.log(data)
+                // console.log(data)
                 const res = await axios.get(`http://localhost:8000/doctor/doctorDetail?email=${location.state.email}`)
                 if(res.data){
                     setdoctor(res.data.doctor)
@@ -68,8 +68,9 @@ const Calendar = ({ startingDate }) => {
     //     console.log(year)
     //     setisAvailablePage(true)
     // }
-    const togglePageShow=(day)=>{
-        setSelectedDay(day)
+    const togglePageShow=(day,month,year)=>{
+        // console.log(day+"-"+(month+1)+"-"+year)
+        setSelectedDay(day+"-"+(month+1)+"-"+year)
         if(user.role=="doctor"){
             setShowResults(!showResults)
         }else{
@@ -96,14 +97,16 @@ const Calendar = ({ startingDate }) => {
             </SevenColGrid>
             <CalendarBody fourCol={DAYSINMONTH === 28}>
                 {range(getDaysInMonth(currentMonth, currentYear)).map((day) => (
+                    
                     <StyledDay
                         // onClick={() => { dateClicked(day, currentMonth, currentYear) }}
-                        onClick={()=>{togglePageShow(day+"-"+currentMonth+"-"+currentYear)}}
+                        onClick={()=>{!(currentYear<new Date().getFullYear() || (currentYear==new Date().getFullYear() && currentMonth<new Date().getMonth()) || (currentYear==new Date().getFullYear() && currentMonth == new Date().getMonth() && day<new Date().getDate())) && togglePageShow(day,currentMonth,currentYear)}}
                         style={{ cursor: 'pointer' }}
                         active={areDatesTheSame(
                             new Date(),
                             getDateObj(day, currentMonth, currentYear)
                         )}
+                        before={(currentYear<new Date().getFullYear() || (currentYear==new Date().getFullYear() && currentMonth<new Date().getMonth()) || (currentYear==new Date().getFullYear() && currentMonth == new Date().getMonth() && day<new Date().getDate())) ? true: false}
                     >{day}
                     </StyledDay>
                 ))}
